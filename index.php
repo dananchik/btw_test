@@ -7,5 +7,5 @@ spl_autoload_register(function ($class) {
 });
 
 $router = new Router;
-
+$router->start();
 ?>
