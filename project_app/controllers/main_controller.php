@@ -2,11 +2,11 @@
 
 
 namespace project_app\controllers;
+use project_app\brain\Controller;
 
-
-class main_controller
+class main_controller extends Controller
 {
     function registr(){
-        echo '5';
+        $this->view->render("registr","Регистрация");
     }
 }

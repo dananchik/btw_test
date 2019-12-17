@@ -17,10 +17,8 @@ class Router
     }
     function match_routes(){
         $url = trim($_SERVER['REQUEST_URI'],'/');
-        print_r($url);
         foreach ($this->routes as $route => $values){
             if ($route == $url){
-                echo $route;
                 $this->parametrs = $values;
                 return true;
             }
@@ -33,11 +31,11 @@ class Router
             $controller_path = 'project_app\controllers\\'.$this->parametrs['controller'].'_controller';
 
             if(class_exists($controller_path)){
-                echo 'hi';
 
                 $action = $this->parametrs['action'];
                 if (method_exists($controller_path,$action)){
-                    echo 'Такой метод есть';
+                    $controller = new $controller_path($this->parametrs);
+                    $controller->$action();
                 }
                 else{
                     echo 'Маршрут не найден';

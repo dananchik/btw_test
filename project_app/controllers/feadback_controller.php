@@ -4,7 +4,7 @@
 namespace project_app\controllers;
 use project_app\brain\Controller;
 
-class feadback extends Controller
+class feadback_controller extends Controller
 {
     function write_feadback(){
         $this->view->render("feadback","Отзыв о нас");
