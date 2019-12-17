@@ -7,7 +7,7 @@ class Router
     private $routes = [];
     function __construct()
     {
-        $arr = require_once 'project_app/config/routes.php';
+        $arr = require 'project_app/config/routes.php';
         foreach ($arr as $key => $value) {
             $this->add_route($key, $value);
         }
