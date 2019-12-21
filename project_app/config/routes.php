@@ -5,9 +5,9 @@ return [
         'controller' => 'main',
         'action' => 'registr',
     ],
-    'avtorization'=>[
-      'controller'=>'main',
-      'action'=>'avtorization'
+    'avtorization' => [
+        'controller' => 'main',
+        'action' => 'avtorization'
     ],
     'wether' => [
         'controller' => 'wether',

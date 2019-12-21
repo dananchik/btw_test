@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'host' => 's1.ho.ua',
+    'host' => 'ho.ua',
     'user' => 'dananchik',
     'password' => '11111111',
-    'db' => 'dananchik',];
+    'db' => 'dananchik',
+];

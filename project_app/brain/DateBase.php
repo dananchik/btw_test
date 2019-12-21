@@ -33,11 +33,11 @@ class DateBase
         }
         $stmt->execute();
         return $stmt->fetchAll();
-       // return $stmt               а так почему то не работает
+        // return $stmt               а так почему то не работает
     }
- //   function column($sql,$params = null){
-   //     $result = $this->query($sql,$params);
-     //   $result->fetchColumn();
-      //  return $result;
+    //   function column($sql,$params = null){
+    //     $result = $this->query($sql,$params);
+    //   $result->fetchColumn();
+    //  return $result;
     //}
 }

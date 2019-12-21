@@ -77,7 +77,7 @@ class main_controller extends Controller
                     $sql = 'SELECT email from users where email = :email and password = :password';
                     $avtorization = $this->db->query($sql, ['email' => $email, 'password' => $password]);
 
-                    if (!empty($avtorization)){
+                    if (!empty($avtorization)) {
                         $user = new User();
                         $user->avtorizate($email);
                     }

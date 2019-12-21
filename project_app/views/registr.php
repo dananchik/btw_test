@@ -1,4 +1,3 @@
-
 </head>
 <body>
 <h2 class="col-md-offset-6">Регистрация</h2>
@@ -28,7 +27,7 @@
             </select>
         </div>
         <div class="col-xs-3">
-            <select class="form-control" name = "year">
+            <select class="form-control" name="year">
                 <option></option>
             </select>
         </div>
@@ -48,7 +47,8 @@
     <div class="form-group">
         <label class="control-label col-xs-3" for="confirmPassword">Подтвердите пароль:</label>
         <div class="col-xs-9">
-            <input type="password" class="form-control" name="password1" id="confirmPassword" placeholder="Введите пароль ещё раз">
+            <input type="password" class="form-control" name="password1" id="confirmPassword"
+                   placeholder="Введите пароль ещё раз">
         </div>
     </div>
     <div class="form-group">
@@ -64,7 +64,7 @@
             </label>
         </div>
     </div>
-    <br />
+    <br/>
     <div class="form-group">
         <div class="col-xs-offset-3 col-xs-9">
             <input type="submit" class="btn btn-primary" name="send" value="Регистрация">

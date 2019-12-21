@@ -1,6 +1,6 @@
 <h2 class="col-md-offset-6">Вход</h2>
 
-<form class="form-horizontal col-md-6 col-md-offset-3" action="" method="post" id = "form">
+<form class="form-horizontal col-md-6 col-md-offset-3" action="" method="post" id="form">
     <div class="form-group">
         <label class="control-label col-xs-3" for="inputEmail">Email:</label>
         <div class="col-xs-9">

@@ -11,10 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <?php
-echo $content_view;
-?>
+    echo $content_view;
+    ?>
 
-<script src="project_app/public/js/bootstrap.min.js"></script>
-</body>
+    <script src="project_app/public/js/bootstrap.min.js"></script>
+    </body>
 </html>
 
