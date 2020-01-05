@@ -10,86 +10,106 @@ class main_controller extends Controller
     function registr()
     {
         if (isset($_POST['send'])) {
+            $errors = false;
             $email = htmlspecialchars(trim($_POST['email']));
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $sql = 'SELECT email from users where email = :email';
                 $email_rapit = $this->db->query($sql, ['email' => $email]);
                 if (empty($email_rapit)) {
-                    if (isset($_POST['name'])) {
+                    if (!empty($_POST['name'])) {
                         $name = htmlspecialchars(trim($_POST['name']));
-                        if (isset($_POST['surname'])) {
+                        if (!empty($_POST['surname'])) {
                             $surname = htmlspecialchars(trim($_POST['surname']));
-                            if (isset($_POST['password'])) {
+                            if (!empty($_POST['password'])) {
                                 $password = htmlspecialchars(trim($_POST['password']));
-                                if (isset($_POST['password1'])) {
-                                    $password1 = htmlspecialchars(trim($_POST['password1']));
-                                    if ($password == $password1) {
-                                        $date_birthday = null;
-                                        if (!empty($_POST['day']) and !empty($_POST['month']) and !empty($_POST['year'])) {
-                                            $date_birthday = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
+                                print_r(strlen($password));
+                                if (strlen($password) >= 8) {
+                                    if (!empty($_POST['password1'])) {
+                                        $password1 = htmlspecialchars(trim($_POST['password1']));
+                                        if ($password == $password1) {
+                                            $date_birthday = null;
+                                            if (!empty($_POST['dateofbirth'])) {
+                                                $date_birthday = $_POST['dateofbirth'];
+                                                print_r($date_birthday);
+                                            }
+                                            $gender = null;
+                                            if (!empty($_POST['gender'])) {
+                                                $gender = $_POST['gender'];
+                                            }
+                                            $user = new User($this->db);
+                                            $user->new_user($email, $surname, $name, $password, $gender,
+                                                $date_birthday);
+                                        } else {
+                                            $errors['password'] = 'пароли не совпадают';
                                         }
-                                        $gender = null;
-                                        if (isset($_POST['gender'])) {
-                                            $gender = $_POST['gender'];
-                                        }
-                                        $user = new User();
-                                        $user->new_user($email, $surname, $name, $password, $gender, $date_birthday);
                                     } else {
-                                        echo 'пароли не совпадают';
+                                        $errors['password'] = 'Вы не ввели повтор пароля';
                                     }
                                 } else {
-                                    echo 'Вы не ввели повтор пароля';
+                                    $errors['password'] = 'пароль должен быть больше 8 символов';
                                 }
+
                             } else {
-                                echo 'Вы не ввели пароль';
+                                $errors['password'] = 'Вы не ввели пароль';
                             }
                         } else {
-                            echo "фамилия введена не верно";
+                            $errors['family'] = "фамилия введена не верно";
                         }
                     } else {
-                        echo 'имя не введено';
+                        $errors['name'] = 'имя не введено';
                     }
 
                 } else {
-                    echo 'такой емаил уже есть';
+                    $errors['email'] = 'такой емаил уже есть';
                 }
                 //   $sql = 'SELECT from users where email = '.$email;
                 // $bool = $this->db->query($sql);
                 // print_r($bool);
 
             } else {
-                echo 'емеил не верный';
+                $errors['email'] = 'емеил не верный';
             }
 
 
         }
+        $title = 'регистрация';
+        $css = 'registr';
+        $script = 'registr';
+        $this->view->render("registr", ['title' => $title, 'css' => $css, 'script' => $script, 'errors' => $errors]);
+    }
 
-        $this->view->render("registr", "Регистрация");
+    function logout()
+    {
+        setcookie('email', '', time() - 2400);
+        setcookie('login', '', time() - 2400);
+        header('Location: http://kurave02.tech017.net.in/registration');
     }
 
     function avtorization()
     {
         if (isset($_POST['send'])) {
+            $errors = false;
             if (isset($_POST['login_email']) and isset($_POST['login_password'])) {
                 $email = htmlspecialchars(trim($_POST['login_email']));
                 $password = htmlspecialchars(trim($_POST['login_password']));
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) and $password > 8) {
+
+                print_r(strlen($password));
+                if (filter_var($email, FILTER_VALIDATE_EMAIL) and strlen($password) >= 8) {
                     $sql = 'SELECT email from users where email = :email and password = :password';
                     $avtorization = $this->db->query($sql, ['email' => $email, 'password' => $password]);
 
                     if (!empty($avtorization)) {
-                        $user = new User();
+                        $user = new User($this->db);
                         $user->avtorizate($email);
                     }
                 } else {
-                    echo 'неправильно введен пароль или емаил';
+                    $errors[] = 'неправильно введен пароль или емаил';
                 }
 
             } else {
-                echo 'вы не заполнили форму!';
+                $errors[] = 'вы не заполнили форму!';
             }
         }
-
-        $this->view->render("avtorization", "авторизация");
+        $this->view->render("avtorization", ['errors' => $errors]);
     }
 }

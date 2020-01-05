@@ -3,7 +3,6 @@
 namespace project_app\brain;
 
 use project_app\brain\View;
-use project_app\brain\DateBase as DB;
 
 abstract class Controller
 {
@@ -11,12 +10,22 @@ abstract class Controller
     public $view;
     public $db;
 
-    function __construct($route)
+    function __construct($route,$db = null)
     {
         $this->route = $route;
-        $this->db = new DB;
+        if (!empty($db)){
+            $this->db = $db;
+        }
         $this->view = new View($this->view);
         //   $sql = 'INSERT INTO users (ff) VALUES (80);';
         //   $this->db->query($sql);
+    }
+    function check_role(){
+        if($_COOKIE['login'] == true){
+            return 'check_user';
+        }
+        else{
+            return 'user';
+        }
     }
 }

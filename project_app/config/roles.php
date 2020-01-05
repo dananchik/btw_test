@@ -1,5 +1,5 @@
 <?php
 return [
-    'chek_user' => ['', 'avtorization', 'feadback', 'show_feadbacks', 'wether'],
-    'user'=>['','avtorization','feadback'],
+    'chek_user' => ['registration', 'avtorization', 'feadback', 'show_feadbacks', ''],
+    'user' => ['registration', 'avtorization', 'feadback'],
 ];

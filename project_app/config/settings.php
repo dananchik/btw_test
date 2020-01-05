@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host' => 'ho.ua',
+    'host' => 'localhost',
     'user' => 'dananchik',
     'password' => '11111111',
     'db' => 'dananchik',

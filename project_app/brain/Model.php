@@ -9,8 +9,8 @@ abstract class Model
 {
     public $db;
 
-    function __construct()
+    function __construct($database)
     {
-        $this->db = new DateBase();
+        $this->db = $database;
     }
 }

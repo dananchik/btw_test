@@ -23,11 +23,9 @@ class User extends Model
     function avtorizate($email){
         setcookie('email',$email,time()+2400);
         setcookie('login',true,time()+2400);
+        header('Location: http://kurave02.tech017.net.in');
     }
-    function logout(){
-        setcookie('email','',time()-2400);
-        setcookie('login','',time()-2400);
-    }
+
 
 }
 //INSERT INTO `users` (`id`, `name`, `surname`, `birthday`, `email`, `gender`, `password`) VALUES (NULL, 'dffd', 'fddfdf', NULL, 'jfgjkgfjkgf', 'mule', '1111');
