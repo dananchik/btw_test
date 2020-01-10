@@ -50,7 +50,7 @@ class wether_controller extends Controller
             'date' => $date,
             'img' => $img,
             'title' => $title,
-            'details'=>[$my_time,$my_tempa,$veter,$fallout],
+            'details' => [$my_time, $my_tempa, $veter, $fallout],
         ]);
     }
 }

@@ -26,51 +26,38 @@ class feadback_controller extends Controller
                             if (mail('kuraveshka@gmail.com', $subject, $text, $headers)) {
                                 $feadback = new Feadback($this->db);
                                 $feadback->new_feadback($email, $text, $subject, $name, $time);
+                            } else {
+                                $errors[] = 'сообщение не отправлено!';
                             }
 
+                        } else {
+                            $errors[] = 'не валидный емаил';
                         }
                     }
-                }else{
-                    echo '<p class="text-danger">че то вы на робота смахиваете</p>';
+                } else {
+                    $errors[] = 'че то вы на робота смахиваете!';
                 }
             }
         }
-        $this->view->render("feadback", "Отзыв о нас");
+        $title = 'Отзыв о нас';
+        $script = 'feadback';
+        $this->view->render("feadback", ['title' => $title, 'script' => $script]);
     }
 
     function show_feadbacks()
     {
         $sql = 'SELECT text,subject,time FROM feadbacs ORDER BY -time';
         $feadbacks = $this->db->query($sql);
-        $this->view->render("all_feadbacs", ['feadbacks' => $feadbacks]);
+        $title = 'Все отзывы';
+        $this->view->render("all_feadbacs", ['feadbacks' => $feadbacks, 'title' => $title]);
     }
 
     function capcha($key)
     {
         $secret = '6LcnYMwUAAAAAG7cCfiwnXuo0vSPoPVZwVp-5L5y';
-        // найдено в инете не работает. 2 вариант
-        // $curl = curl_init('https://www.google.com/recaptcha/api/siteverify');
-        // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($curl, CURLOPT_POST, true);
-        // curl_setopt($curl, CURLOPT_POSTFIELDS, 'secret=' . $secret . '&response=' . $key);
-        // $out = curl_exec($curl);
-        // echo $out;
-        // curl_close($curl);
-
-        //     $out = json_decode($out);
-        //    if ($out->success == true) {
-        //      echo 'ну наконецто';
-        //}
-        //else{
-        //  echo 'вы робот!!!';
-        // }
-        // самый первый вариант тоже не работает $result пуст
         $response = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $key . '&remoteip' . $_SERVER['REMOTE_ADDR'];
-        //echo 'hello';
         $json = file_get_contents($response);
         $result = json_decode($json);
-        //Попробывал все варианты после установки ssl сертификата всеравно не работает:(
-        // этот вариант посоветовали в чатике помощи сказали 100% проверенный но тоже не работает
         if ($result->success == true) {
             return true;
         } else {

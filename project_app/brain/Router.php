@@ -39,7 +39,7 @@ class Router
             $role = $this->role();
             $allows = require 'project_app/config/roles.php';
             if (!in_array($url,$allows[$role])){
-                header('Location:https://kurave02.tech017.net.in/registration');
+                header('Location:http://kurave02.tech017.net.in/registration');
             }
             $controller_path = 'project_app\controllers\\' . $this->parametrs['controller'] . '_controller';
 

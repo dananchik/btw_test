@@ -1,12 +1,12 @@
 <?php if ($_COOKIE['login'] == false): ?>
     <h2 class="col-md-offset-6">Регистрация</h2>
-    <form class="form-horizontal col-md-6 col-md-offset-3" action="" method="post">
+    <form class="form-horizontal col-md-6 col-md-offset-3" action="" method="post" id="my_form">
         <div class="form-group">
             <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
             <div class="col-xs-9">
                 <input type="text" class="form-control" id="lastName" name="surname" placeholder="Введите фамилию">
                 <?php if (!empty($params['errors']['family'])): ?>
-                    <p class="alert-danger text-center p-5 col-6 offset-3"><?php echo $params['errors']['family']; ?></p>
+                    <p class="alert-danger text-center col-8 offset-2"><?php echo $params['errors']['family']; ?></p>
                 <?php endif; ?>
             </div>
 
@@ -15,6 +15,7 @@
             <label class="control-label col-xs-3" for="firstName">Имя:</label>
             <div class="col-xs-9">
                 <input type="text" class="form-control" name="name" id="firstName" placeholder="Введите имя">
+                <div class="error-box"></div>
                 <?php if (!empty($params['errors']['name'])): ?>
                     <p class="alert-danger text-center p-5 col-6 offset-3"><?php echo $params['errors']['name']; ?></p>
                 <?php endif; ?>
@@ -32,7 +33,7 @@
             <div class="col-xs-9">
                 <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email">
                 <?php if (!empty($params['errors']['email'])): ?>
-                    <p class="alert-danger text-center p-5 col-6 offset-3"><?php echo $params['errors']['email']; ?></p>
+                    <p class="alert-danger text-center col-8 offset-2"><?php echo $params['errors']['email']; ?></p>
                 <?php endif; ?>
             </div>
 
@@ -42,18 +43,12 @@
             <div class="col-xs-9">
                 <input type="password" class="form-control" name="password" id="inputPassword"
                        placeholder="Введите пароль">
+                <div class="error-box"></div>
                 <?php if (!empty($params['errors']['password'])): ?>
-                    <p class="alert-danger text-center p-5 col-6 offset-3"><?php echo $params['errors']['password']; ?></p>
+                    <p class="alert-danger text-center col-8 offset-2"><?php echo $params['errors']['password']; ?></p>
                 <?php endif; ?>
             </div>
 
-        </div>
-        <div class="form-group">
-            <label class="control-label col-xs-3" for="confirmPassword">Подтвердите пароль:</label>
-            <div class="col-xs-9">
-                <input type="password" class="form-control" name="password1" id="confirmPassword"
-                       placeholder="Введите пароль ещё раз">
-            </div>
         </div>
         <div class="form-group">
             <label class="control-label col-xs-3">Пол:</label>

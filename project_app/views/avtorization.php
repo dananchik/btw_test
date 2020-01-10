@@ -20,11 +20,10 @@
                 <input type="submit" class="btn btn-primary" name="send" id="send_form" value="Вход">
             </div>
         </div><?php if (!$params['errors'] == false): ?>
-            <p class="alert-danger text-center p-5 col-6 offset-3"><?php echo $params['errors']['0'] ; ?></p>
+            <p class="alert-danger text-center p-5 col-6 offset-3"><?php echo $params['errors']['0']; ?></p>
         <?php endif; ?>
     </form>
 
-    <script src="project_app/public/js/avtorizate.js"></script>
 
 <?php else: ?>
 

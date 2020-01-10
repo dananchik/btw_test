@@ -9,6 +9,7 @@ class main_controller extends Controller
 {
     function registr()
     {
+        $errors = false;
         if (isset($_POST['send'])) {
             $errors = false;
             $email = htmlspecialchars(trim($_POST['email']));
@@ -22,29 +23,21 @@ class main_controller extends Controller
                             $surname = htmlspecialchars(trim($_POST['surname']));
                             if (!empty($_POST['password'])) {
                                 $password = htmlspecialchars(trim($_POST['password']));
-                                print_r(strlen($password));
                                 if (strlen($password) >= 8) {
-                                    if (!empty($_POST['password1'])) {
-                                        $password1 = htmlspecialchars(trim($_POST['password1']));
-                                        if ($password == $password1) {
-                                            $date_birthday = null;
-                                            if (!empty($_POST['dateofbirth'])) {
-                                                $date_birthday = $_POST['dateofbirth'];
-                                                print_r($date_birthday);
-                                            }
-                                            $gender = null;
-                                            if (!empty($_POST['gender'])) {
-                                                $gender = $_POST['gender'];
-                                            }
-                                            $user = new User($this->db);
-                                            $user->new_user($email, $surname, $name, $password, $gender,
-                                                $date_birthday);
-                                        } else {
-                                            $errors['password'] = 'пароли не совпадают';
-                                        }
-                                    } else {
-                                        $errors['password'] = 'Вы не ввели повтор пароля';
+                                    $hash_password = password_hash($password, PASSWORD_BCRYPT);
+                                    $date_birthday = null;
+                                    if (!empty($_POST['dateofbirth'])) {
+                                        $date_birthday = $_POST['dateofbirth'];
                                     }
+                                    $gender = null;
+                                    if (!empty($_POST['gender'])) {
+                                        $gender = $_POST['gender'];
+                                    }
+                                    $user = new User($this->db);
+                                    $user->new_user($email, $surname, $name, $hash_password, $gender,
+                                        $date_birthday);
+                                    $user->avtorizate($email);
+
                                 } else {
                                     $errors['password'] = 'пароль должен быть больше 8 символов';
                                 }
@@ -92,15 +85,20 @@ class main_controller extends Controller
             if (isset($_POST['login_email']) and isset($_POST['login_password'])) {
                 $email = htmlspecialchars(trim($_POST['login_email']));
                 $password = htmlspecialchars(trim($_POST['login_password']));
-
-                print_r(strlen($password));
+                $password_hash = password_hash($password, PASSWORD_BCRYPT);
                 if (filter_var($email, FILTER_VALIDATE_EMAIL) and strlen($password) >= 8) {
-                    $sql = 'SELECT email from users where email = :email and password = :password';
-                    $avtorization = $this->db->query($sql, ['email' => $email, 'password' => $password]);
-
-                    if (!empty($avtorization)) {
-                        $user = new User($this->db);
-                        $user->avtorizate($email);
+                    $sql = 'SELECT password from users where email = :email';
+                    $hashed_password = $this->db->query($sql, ['email' => $email]);
+                    if (!empty($hashed_password)) {
+                        //print_r($hashed_password['0']['password']);
+                        //  $bb = '555';
+                        //  var_dump(password_verify($bb,password_hash($bb,PASSWORD_BCRYPT)));
+                        if (print_r(password_verify($password, $hashed_password['0']['password']))) {
+                            $user = new User($this->db);
+                            $user->avtorizate($email);
+                        }
+                    } else {
+                        $errors[] = 'ошибка в форме!';
                     }
                 } else {
                     $errors[] = 'неправильно введен пароль или емаил';
@@ -110,6 +108,8 @@ class main_controller extends Controller
                 $errors[] = 'вы не заполнили форму!';
             }
         }
-        $this->view->render("avtorization", ['errors' => $errors]);
+        $title = 'авторизация';
+        $script = 'avtorizate';
+        $this->view->render("avtorization", ['errors' => $errors, 'title' => $title, 'script' => $script]);
     }
 }
