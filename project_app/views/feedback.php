@@ -27,9 +27,9 @@
         <div class="col-xs-offset-3 col-xs-9">
             <div class="g-recaptcha" data-sitekey="6LcnYMwUAAAAAHa2qgQAX_Dm87L9CM3ZLKCLG6YU"></div>
             <input type="submit" class="btn btn-primary" name="send_form" id="send_form" value="Отправить">
-            <?php if (!empty($params['errors'])): ?>
+			<?php if (!empty($params['errors'])): ?>
                 <p class="alert-danger text-center col-8 offset-2"><?php echo $params['errors']; ?></p>
-            <?php endif; ?>
+			<?php endif; ?>
         </div>
     </div>
 </form>

@@ -3,14 +3,25 @@
 
 namespace project_app\brain;
 
-use project_app\brain\DateBase;
 
 abstract class Model
 {
-    public $db;
+	public $db;
 
-    function __construct($database)
-    {
-        $this->db = $database;
-    }
+	function __construct()
+	{
+		$this->db = DateBase::getInstance();
+	}
+
+	function query($sql, $papams = null)
+	{
+		$stmt = $this->db->prepare($sql);
+		if (!empty($papams)) {
+			foreach ($papams as $key => $val) {
+				$stmt->bindValue(':' . $key, $val);
+			}
+		}
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
 }

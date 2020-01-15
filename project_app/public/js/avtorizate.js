@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $(".alert-danger").remove();
     $("#form").submit(function () {
         $(".alert-danger").remove();
         var $form = $(this);

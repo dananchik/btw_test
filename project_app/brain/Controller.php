@@ -10,18 +10,16 @@ abstract class Controller
     public $view;
     public $db;
 
-    function __construct($route, $db = null)
+    function __construct($route)
     {
         $this->route = $route;
-        if (!empty($db)) {
-            $this->db = $db;
-        }
+        $this->db = DateBase::getInstance();
         $this->view = new View($this->view);
     }
 
     function check_role()
     {
-        if ($_COOKIE['login'] == true) {
+        if ($_SESSION['login'] == true) {
             return 'check_user';
         } else {
             return 'user';

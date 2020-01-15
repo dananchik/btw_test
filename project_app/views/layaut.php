@@ -5,16 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php if (isset($params['title'])): ?>
+	<?php if (isset($params['title'])): ?>
         <title><?php echo $params['title'] ?></title>
-    <?php else: ?>
+	<?php else: ?>
         <title>Погодный сайтик</title>
-    <?php endif; ?>
+	<?php endif; ?>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <?php if (isset($params['css'])): ?>
+	<?php if (isset($params['css'])): ?>
         <link rel="stylesheet" href="<?php echo "project_app/public/css/" . $params['css'] . ".css"; ?>"></link>
-    <?php endif; ?>
+	<?php endif; ?>
 
 </head>
 <body>
@@ -37,19 +37,20 @@
         <div class="navbar-nav ml-auto">
 
 
-            <?php if (isset($_COOKIE['login']) and isset($_COOKIE['email'])): ?>
+			<?php if (isset($_SESSION['login']) and isset($_SESSION['email'])): ?>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><?php echo $_COOKIE['email']; ?>
+                    <a href="#" class="nav-link dropdown-toggle"
+                       data-toggle="dropdown"><?php echo $_SESSION['email']; ?>
                         <b
                                 class="caret"></b></a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/logout">Logout</a>
                     </div>
                 </li>
-            <?php else: ?>
+			<?php else: ?>
                 <li class="nav-item"><a class="nav-link" href="/registration">Регистрация</a></li>
                 <li class="nav-item"><a class="nav-link" href="/avtorization">Авторизация</a></li>
-            <?php endif; ?>
+			<?php endif; ?>
             </ul>
         </div>
 </nav>
